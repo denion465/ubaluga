@@ -1,35 +1,40 @@
 package com.ubaluga.backend.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ubaluga.backend.enums.Sexo;
 import com.ubaluga.backend.util.ConfigUrl;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
-@Getter
-@Setter
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(schema = ConfigUrl.SCHEMA_PORTAL_UBALUGA, name = "pessoa")
-public class Pessoa {
+public class Usuario {
 
   @Id
   @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_id_seq")
-  @SequenceGenerator(name = "pessoa_id_seq", sequenceName = ConfigUrl.SCHEMA_PORTAL_UBALUGA + ".pessoa_id_seq", allocationSize = 1)
+  @SequenceGenerator(name = "pessoa_id_seq", sequenceName = ConfigUrl.SCHEMA_PORTAL_UBALUGA +
+    ".pessoa_id_seq", allocationSize = 1)
+  @EqualsAndHashCode.Include
   private Integer id;
 
   @Column(name = "nome")
@@ -45,8 +50,10 @@ public class Pessoa {
   @Column(name = "sexo")
   private Sexo sexo;
 
-  @OneToMany
-  private List<Endereco> endereco;
+  @JsonIgnore
+  @Embedded
+  @Column(name = "endereco")
+  private Endereco endereco;
 
   @Column(name = "data_nascimento")
   private Date dataNascimento;
@@ -56,4 +63,8 @@ public class Pessoa {
 
   @Column(name = "telefone")
   private String telefone;
+
+  @CreationTimestamp
+  @Column(name = "data_cadastro", columnDefinition = "dateTime")
+  private LocalDateTime dataCadastro;
 }

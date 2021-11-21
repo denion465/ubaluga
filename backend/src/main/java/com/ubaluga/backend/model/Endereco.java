@@ -1,46 +1,29 @@
 package com.ubaluga.backend.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.Embeddable;
 
-import com.ubaluga.backend.util.ConfigUrl;
+import lombok.Data;
 
-
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-@Entity
-@Table(schema = ConfigUrl.SCHEMA_PORTAL_UBALUGA, name = "endereco")
+@Data
+@Embeddable
 public class Endereco {
 
-  @Id
-  @Column(name = "endereco_id")
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "endereco_id_seq")
-  @SequenceGenerator(name = "endereco_id_seq", sequenceName = ConfigUrl.SCHEMA_PORTAL_UBALUGA + ".endereco_id_seq", allocationSize = 1)
-  private Integer id;
-
-  @Column(name = "logradouro")
+  @Column(name = "endereco_logradouro")
   private String logradouro;
 
-  @Column(name = "numero_casa")
-  private Number numeroCasa;
-  
-  @Column(name = "sem_numero")
+  @Column(name = "endereco_numero")
+  private String numero;
+
+  @Column(name = "endereco_sem_numero")
   private Boolean semNumero;
 
-  @Column(name = "complemento")
+  @Column(name = "endereco_complemento")
   private String complemento;
 
-  @Column(name = "bairro")
+  @Column(name = "endereco_bairro")
   private String bairro;
 
-  @Column(name = "cep")
+  @Column(name = "endereco_cep")
   private String cep;
 }
