@@ -1,6 +1,8 @@
+CREATE SEQUENCE portal_ubaluga.imovel_id_seq;
+
 CREATE TABLE portal_ubaluga.imovel
 (
-  id INTEGER NOT NULL,
+  id INTEGER NOT NULL DEFAULT nextval('portal_ubaluga.imovel_id_seq'::regclass),
   endereco_logradouro VARCHAR(30) NOT NULL,
   endereco_numero VARCHAR(30) NOT NULL,
   endereco_sem_numero BOOLEAN NOT NULL,
