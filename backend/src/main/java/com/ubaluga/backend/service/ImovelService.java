@@ -5,14 +5,13 @@ import com.ubaluga.backend.repository.ImovelRespository;
 
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ImovelService {
 
   private final ImovelRespository imovelRespository;
-
-  public ImovelService(ImovelRespository imovelRespository) {
-    this.imovelRespository = imovelRespository;
-  }
 
   public Imovel salvar(Imovel imovel) {
 

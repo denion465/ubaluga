@@ -13,3 +13,8 @@ CREATE TABLE portal_ubaluga.imovel
   data_cadastro TIMESTAMP WITHOUT TIME ZONE NOT NULL,
   CONSTRAINT pk_imovel PRIMARY KEY (id)
 );
+
+ALTER TABLE portal_ubaluga.usuario ADD COLUMN imovel_id INTEGER not NULL;
+
+ALTER TABLE portal_ubaluga.usuario ADD FOREIGN key (imovel_id)
+  REFERENCES portal_ubaluga.imovel (id);
